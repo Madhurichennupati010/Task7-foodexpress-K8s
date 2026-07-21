@@ -1,0 +1,67 @@
+version: "3.9"
+
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: food-mysql
+
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: foodexpress
+
+    ports:
+      - "3307:3306"
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    networks:
+      - food-network
+
+  backend:
+    build: ./backend
+
+    container_name: food-backend
+
+    restart: always
+
+    depends_on:
+      - mysql
+
+    ports:
+      - "5000:5000"
+
+    environment:
+      PORT: 5000
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: password
+      DB_NAME: foodexpress
+
+    networks:
+      - food-network
+
+  frontend:
+    build: ./frontend
+
+    container_name: food-frontend
+
+    depends_on:
+      - backend
+
+    ports:
+      - "8082:80"
+
+    networks:
+      - food-network
+
+volumes:
+  mysql-data:
+
+networks:
+  food-network:

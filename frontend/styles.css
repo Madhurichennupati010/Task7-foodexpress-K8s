@@ -1,0 +1,145 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f8f9fa;
+}
+
+/* Navbar */
+
+.navbar-brand{
+    font-size:28px;
+}
+
+.nav-link{
+    font-size:18px;
+    transition:.3s;
+}
+
+.nav-link:hover{
+    color:#ffc107 !important;
+}
+
+/* Hero */
+
+.hero{
+
+    background:linear-gradient(135deg,#ff512f,#dd2476);
+
+    color:white;
+
+    height:450px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+}
+
+.hero h1{
+
+    font-size:55px;
+
+    font-weight:bold;
+}
+
+.hero p{
+
+    font-size:22px;
+
+    margin:20px 0;
+}
+
+/* Food Cards */
+
+.card{
+
+    transition:.4s;
+
+    border:none;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.card:hover{
+
+    transform:translateY(-10px);
+}
+
+.card img{
+
+    height:220px;
+
+    object-fit:cover;
+}
+
+.card-title{
+
+    font-weight:600;
+}
+
+.price{
+
+    font-size:22px;
+
+    color:red;
+
+    font-weight:bold;
+}
+
+/* Icons */
+
+.bi{
+
+    transition:.3s;
+}
+
+.bi:hover{
+
+    transform:scale(1.2);
+}
+
+/* Footer */
+
+footer{
+
+    margin-top:70px;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.hero{
+
+height:350px;
+
+}
+
+.hero h1{
+
+font-size:36px;
+
+}
+
+.hero p{
+
+font-size:18px;
+
+}
+
+}

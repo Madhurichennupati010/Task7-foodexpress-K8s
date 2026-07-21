@@ -1,0 +1,21 @@
+{
+  "name": "foodexpress-backend",
+  "version": "1.0.0",
+  "description": "FoodExpress Backend API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Madhuri Chennupati",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

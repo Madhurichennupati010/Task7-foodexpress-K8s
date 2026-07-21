@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Cart</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-danger">
+
+<div class="container">
+
+<a href="index.html"
+
+class="navbar-brand">
+
+🍔 FoodExpress
+
+</a>
+
+</div>
+
+</nav>
+
+<div class="container mt-5">
+
+<h2>
+
+Shopping Cart
+
+</h2>
+
+<table class="table table-bordered mt-4">
+
+<thead>
+
+<tr>
+
+<th>Food</th>
+
+<th>Price</th>
+
+</tr>
+
+</thead>
+
+<tbody id="cartTable">
+
+</tbody>
+
+</table>
+
+<h3 id="total">
+
+</h3>
+
+<button class="btn btn-success">
+
+Checkout
+
+</button>
+
+</div>
+
+<script>
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+let total=0;
+
+let table=document.getElementById("cartTable");
+
+cart.forEach(item=>{
+
+table.innerHTML+=`
+
+<tr>
+
+<td>${item.name}</td>
+
+<td>₹${item.price}</td>
+
+</tr>
+
+`;
+
+total+=item.price;
+
+});
+
+document.getElementById("total").innerHTML="Total : ₹"+total;
+
+</script>
+
+</body>
+
+</html>
