@@ -3,7 +3,7 @@ kind: Deployment
 
 metadata:
   name: backend
-  namespace: foodexpress
+  namespace: mysql-secret
 
 spec:
   replicas: 2
@@ -60,13 +60,13 @@ spec:
         - name: DB_USER
           valueFrom:
             secretKeyRef:
-              name: foodexpress-secret
+              name: mysql-secret
               key: DB_USER
 
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: foodexpress-secret
+              name: mysql-secret
               key: DB_PASSWORD
 
         resources:
