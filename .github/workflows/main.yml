@@ -1,4 +1,4 @@
-name: Deploy FoodExpress to Minikube
+name: Deploy FoodExpress Application to Minikube on AWS EC2
 
 on:
   push:
@@ -7,60 +7,73 @@ on:
 
 jobs:
   deploy:
+    name: Deploy Application
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to EC2
+      - name: Connect to AWS EC2 via SSH
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
+
           script: |
 
+            echo "===== Updating Project Repository ====="
             cd ~/Task7-foodexpress-K8s
-
             git pull origin main
 
-            # Start Minikube if not running
+            echo "===== Starting Minikube Cluster ====="
             minikube status || minikube start --driver=docker
 
-            # Enable required addons
+            echo "===== Enabling Required Minikube Add-ons ====="
             minikube addons enable ingress
             minikube addons enable metrics-server
             minikube addons enable storage-provisioner
             minikube addons enable default-storageclass
 
-            # Pull latest Docker images
+            echo "===== Pulling Latest Docker Images ====="
             docker pull madhu934652/food-express-backend:latest
             docker pull madhu934652/food-express-frontend:latest
 
-            # Deploy Kubernetes resources
+            echo "===== Deploying Kubernetes Resources ====="
             kubectl apply -f kubernetes/
 
-            # Restart deployments
-            kubectl rollout restart deployment backend -n foodexpress
-            kubectl rollout restart deployment frontend -n foodexpress
+            echo "===== Restarting Application Deployments ====="
+            kubectl rollout restart deployment/backend -n foodexpress
+            kubectl rollout restart deployment/frontend -n foodexpress
 
-            # Wait for deployments
+            echo "===== Waiting for Deployments to Complete ====="
+            kubectl rollout status deployment/mysql -n foodexpress
             kubectl rollout status deployment/backend -n foodexpress
             kubectl rollout status deployment/frontend -n foodexpress
-            kubectl rollout status deployment/mysql -n foodexpress
 
-            echo "========== PODS =========="
+            echo "===== Deployment Summary ====="
+
+            echo ""
+            echo "Pods"
             kubectl get pods -n foodexpress
 
-            echo "========== SERVICES =========="
+            echo ""
+            echo "Services"
             kubectl get svc -n foodexpress
 
-            echo "========== PVC =========="
+            echo ""
+            echo "Persistent Volume Claims"
             kubectl get pvc -n foodexpress
 
-            echo "========== PV =========="
+            echo ""
+            echo "Persistent Volumes"
             kubectl get pv
 
-            echo "========== HPA =========="
+            echo ""
+            echo "Horizontal Pod Autoscaler"
             kubectl get hpa -n foodexpress
 
-            echo "========== INGRESS =========="
+            echo ""
+            echo "Ingress"
             kubectl get ingress -n foodexpress
+
+            echo ""
+            echo "✅ FoodExpress deployment completed successfully."
