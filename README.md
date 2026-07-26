@@ -104,204 +104,251 @@ FoodExpress
 
 ---
 
-# ⚙️ Docker Images
+# ⚙️ Prerequisites
 
-Backend
+Install the following:
 
-```
-madhu934652/food-express-backend:latest
-```
-
-Frontend
-
-```
-madhu934652/food-express-frontend:latest
-```
-
----
-
-# 🚀 Deployment Workflow
-
-```
-GitHub
-
-↓
-
-GitHub Actions
-
-↓
-
-Docker Build
-
-↓
-
-Docker Hub
-
-↓
-
-AWS EC2
-
-↓
-
-Minikube
-
-↓
-
-Kubernetes
-
-↓
-
-FoodExpress Application
-```
-
----
-
-# ☁️ AWS Setup
-
-Launch Ubuntu EC2
-
-Install
-
-- Docker
 - Git
+- Docker
 - kubectl
 - Minikube
+- AWS EC2 Ubuntu Server
+- Docker Hub Account
 
-Start Minikube
+---
+
+# 🚀 Step 1 - Launch AWS EC2
+
+Create an Ubuntu EC2 instance.
+
+Recommended:
+
+- Ubuntu 22.04
+- t3.medium
+- 30 GB Storage
+
+Open Security Group ports:
+
+| Port | Purpose |
+|-------|----------|
+|22|SSH|
+|80|HTTP|
+|443|HTTPS|
+|30000-32767|NodePort|
+
+SSH into EC2
+
+```bash
+ssh -i key.pem ubuntu@<EC2-PUBLIC-IP>
+```
+
+---
+
+# 🚀 Step 2 - Install Docker
+
+```bash
+sudo apt update
+
+sudo apt install docker.io -y
+
+sudo systemctl enable docker
+
+sudo systemctl start docker
+
+sudo usermod -aG docker ubuntu
+
+newgrp docker
+```
+
+Verify
+
+```bash
+docker --version
+```
+
+---
+
+# 🚀 Step 3 - Install kubectl
+
+```bash
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+chmod +x kubectl
+
+sudo mv kubectl /usr/local/bin/
+```
+
+Verify
+
+```bash
+kubectl version --client
+```
+
+---
+
+# 🚀 Step 4 - Install Minikube
+
+```bash
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+```
+
+Verify
+
+```bash
+minikube version
+```
+
+---
+
+# 🚀 Step 5 - Start Minikube
 
 ```bash
 minikube start --driver=docker
 ```
 
-Enable Addons
+Verify
 
 ```bash
-minikube addons enable ingress
+kubectl get nodes
+```
 
-minikube addons enable metrics-server
+Expected
+
+```
+Ready
 ```
 
 ---
 
-# 🐳 Build Docker Images
+# 🚀 Step 6 - Clone Repository
+
+```bash
+git clone https://github.com/Madhurichennupati010/Task7-foodexpress-K8s.git
+
+cd Task7-foodexpress-K8s
+```
+
+---
+
+# 🚀 Step 7 - Build Docker Images
 
 Backend
 
 ```bash
-docker build -t madhu934652/food-express-backend:latest .
+docker build -t madhu934652/food-express-backend:v1 ./backend
 ```
 
 Frontend
 
 ```bash
-docker build -t madhu934652/food-express-frontend:latest .
+docker build -t madhu934652/food-express-frontend:v1 ./frontend
 ```
 
 ---
 
-# 📤 Push Images
+# 🚀 Step 8 - Push Images
 
 ```bash
 docker login
+```
 
-docker push madhu934652/food-express-backend:latest
+```bash
+docker push madhu934652/food-express-backend:v1
 
-docker push madhu934652/food-express-frontend:latest
+docker push madhu934652/food-express-frontend:v1
 ```
 
 ---
 
-# ☸️ Kubernetes Deployment
-
-Create Namespace
+# 🚀 Step 9 - Enable Ingress
 
 ```bash
-kubectl apply -f namespace.yaml
+minikube addons enable ingress
 ```
 
-Deploy ConfigMap
+Verify
 
 ```bash
-kubectl apply -f config.yaml
-```
-
-Deploy Secrets
-
-```bash
-kubectl apply -f secret.yaml
-
-kubectl apply -f mysql-secret.yaml
-```
-
-Deploy Storage
-
-```bash
-kubectl apply -f mysql-pv.yaml
-
-kubectl apply -f mysql-pvc.yaml
-```
-
-Deploy MySQL
-
-```bash
-kubectl apply -f mysql-deployment.yaml
-```
-
-Deploy Backend
-
-```bash
-kubectl apply -f backend-deployment.yaml
-
-kubectl apply -f backend-service.yaml
-```
-
-Deploy Frontend
-
-```bash
-kubectl apply -f frontend-deployment.yaml
-
-kubectl apply -f frontend-service.yaml
-```
-
-Deploy Ingress
-
-```bash
-kubectl apply -f ingress.yaml
-```
-
-Deploy HPA
-
-```bash
-kubectl apply -f hpa.yaml
+kubectl get pods -n ingress-nginx
 ```
 
 ---
 
-# 📊 Verify Deployment
+# 🚀 Step 10 - Deploy Kubernetes Resources
+
+Go to Kubernetes folder
 
 ```bash
-kubectl get all -n foodexpress
+cd kubernetes
 ```
 
-Pods
+Apply everything
+
+```bash
+kubectl apply -f .
+```
+
+---
+
+# 🚀 Step 11 - Verify Namespace
+
+```bash
+kubectl get ns
+```
+
+---
+
+# 🚀 Step 12 - Verify Pods
 
 ```bash
 kubectl get pods -n foodexpress
 ```
 
-Services
+---
+
+# 🚀 Step 13 - Verify Deployments
+
+```bash
+kubectl get deployments -n foodexpress
+```
+
+---
+
+# 🚀 Step 14 - Verify Services
 
 ```bash
 kubectl get svc -n foodexpress
 ```
 
-Deployments
+---
+
+# 🚀 Step 15 - Verify Secrets
 
 ```bash
-kubectl get deployment -n foodexpress
+kubectl get secrets -n foodexpress
 ```
 
-HPA
+---
+
+# 🚀 Step 16 - Verify ConfigMap
+
+```bash
+kubectl get configmap -n foodexpress
+```
+
+---
+
+# 🚀 Step 17 - Verify Ingress
+
+```bash
+kubectl get ingress -n foodexpress
+```
+
+---
+
+# 🚀 Step 18 - Verify HPA
 
 ```bash
 kubectl get hpa -n foodexpress
@@ -309,172 +356,165 @@ kubectl get hpa -n foodexpress
 
 ---
 
+# 🚀 Step 19 - Check Logs
+
+Backend
+
+```bash
+kubectl logs deployment/backend -n foodexpress
+```
+
+Frontend
+
+```bash
+kubectl logs deployment/frontend -n foodexpress
+```
+
+MySQL
+
+```bash
+kubectl logs deployment/mysql -n foodexpress
+```
+
+---
+
+# 🚀 Step 20 - Open Application
+
+Get Minikube IP
+
+```bash
+minikube ip
+```
+
+Example
+
+```
+192.168.49.2
+```
+
+Open
+
+```
+http://192.168.49.2
+```
+
+If using hostname
+
+Edit hosts file
+
+```
+192.168.49.2 foodexpress.local
+```
+
+Then
+
+```
+http://foodexpress.local
+```
+
+---
+
 # 📈 Horizontal Pod Autoscaler
 
-Minimum Pods
+Generate load
 
-```
-2
-```
-
-Maximum Pods
-
-```
-6
+```bash
+kubectl run load-generator \
+--rm -it \
+--image=busybox \
+--restart=Never \
+-- /bin/sh
 ```
 
-Target CPU
+Inside pod
 
+```bash
+while true;
+do
+wget -q -O- http://frontend-service;
+done
 ```
-70%
+
+Check
+
+```bash
+kubectl get hpa -w -n foodexpress
 ```
 
----
+Watch Pods
 
-# 🔐 Kubernetes Secrets
-
-- Database Username
-- Database Password
-- MySQL Root Password
-
----
-
-# 📦 Persistent Storage
-
-Persistent Volume
-
-Persistent Volume Claim
-
-Ensures MySQL data is retained even if the pod restarts.
-
----
-
-# 🔄 CI/CD Pipeline
-
-```
-Git Push
-
-↓
-
-GitHub Actions
-
-↓
-
-Build Docker Image
-
-↓
-
-Push Docker Hub
-
-↓
-
-Deploy Kubernetes
+```bash
+kubectl get pods -w -n foodexpress
 ```
 
 ---
 
-# 🖥️ Screenshots
+# 🧹 Cleanup
 
-## AWS EC2
+Delete everything
 
-> Add Screenshot
+```bash
+kubectl delete -f .
+```
 
----
+Delete Minikube
 
-## Docker Images
-
-> Add Screenshot
-
----
-
-## Docker Hub Repository
-
-> Add Screenshot
+```bash
+minikube delete
+```
 
 ---
 
-## Kubernetes Pods
+# 🔍 Troubleshooting
 
-> Add Screenshot
+## Pod Crash
 
----
-
-## Kubernetes Services
-
-> Add Screenshot
+```bash
+kubectl describe pod POD_NAME -n foodexpress
+```
 
 ---
 
-## Horizontal Pod Autoscaler
+## Check Events
 
-> Add Screenshot
-
----
-
-## Browser Output
-
-> Add Screenshot
+```bash
+kubectl get events -n foodexpress
+```
 
 ---
 
-# 🐞 Challenges Faced
+## View Logs
 
-✅ Docker Hub Authentication Error
-
-✅ Large Backend Docker Image
-
-✅ MySQL Secret Configuration Error
-
-✅ CreateContainerConfigError
-
-✅ Backend Database Connection Issues
-
-✅ NodePort Browser Access
+```bash
+kubectl logs POD_NAME -n foodexpress
+```
 
 ---
 
-# 💡 Solutions
+## Restart Deployment
 
-- Optimized Dockerfile
-- Used Kubernetes Secrets
-- Configured ConfigMaps
-- Created Persistent Storage
-- Used Resource Requests & Limits
-- Added Health Probes
-- Configured HPA
+```bash
+kubectl rollout restart deployment frontend -n foodexpress
+
+kubectl rollout restart deployment backend -n foodexpress
+```
 
 ---
 
-# 🎓 Learning Outcomes
+# 📸 Screenshots
 
-- Docker Containerization
-- Kubernetes Deployments
-- ConfigMaps
-- Secrets
-- Persistent Volumes
-- Persistent Volume Claims
-- Horizontal Pod Autoscaler
+Add screenshots for:
+
+- EC2 Instance
+- Docker Images
+- Docker Hub Repository
+- Minikube Running
+- Pods
+- Deployments
 - Services
 - Ingress
-- Docker Hub
-- GitHub Actions
-- AWS EC2
-- Minikube
-
----
-
-# 🚀 Future Enhancements
-
-- Amazon EKS
-- Terraform
-- Helm Charts
-- ArgoCD
-- Prometheus
-- Grafana
-- NGINX Ingress
-- SSL/TLS
-- Monitoring
-- Logging
+- HPA
+- Browser Output
 
 ---
 
@@ -482,20 +522,10 @@ Deploy Kubernetes
 
 **Madhuri Chennupati**
 
-DevOps Engineer
+AWS | Docker | Kubernetes | Jenkins | Terraform | Linux | DevOps Engineer
 
-GitHub: https://github.com/<your-github-username>
+GitHub:
 
-LinkedIn: https://linkedin.com/in/<your-linkedin-profile>
-
----
-
-# ⭐ If you found this project useful
-
-Please give it a ⭐ on GitHub!
-
----
-
-## 📜 License
+https://github.com/Madhurichennupati010
 
 This project is licensed under the MIT License.
