@@ -142,14 +142,12 @@ The following Kubernetes resources are used to deploy, configure, expose, secure
 | **ingress.yaml** | Ingress | Routes external HTTP requests to the frontend service using the NGINX Ingress Controller. |
 | **hpa.yaml** | Horizontal Pod Autoscaler | Automatically scales application pods based on CPU usage. |
 
-```
+# kubernetes files explanation 
 
-# 📚 Kubernetes Resources Explained
-
-#📦 Namespace
+# Namespace
 - Organizes and isolates all Kubernetes resources within a dedicated namespace.
 
-#⚙️ ConfigMap
+# ConfigMap
 - Stores **non-sensitive** configuration values that can be updated without changing the application.
 
 # 🔐 Secret
