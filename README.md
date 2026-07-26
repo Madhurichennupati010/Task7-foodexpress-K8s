@@ -1,10 +1,9 @@
 # 🍔 FoodExpress - End-to-End DevOps Project
 
 
--
 # 📖 Project Overview
 
-FoodExpress is a cloud-native food ordering application deployed using modern DevOps practices. This project demonstrates containerization, orchestration, scalability, and deployment automation using Docker, Kubernetes (Minikube), AWS EC2, GitHub Actions, and Docker Hub.
+FoodExpress is a cloud-native food ordering application deployed using modern DevOps practices. This project demonstrates containerization, orchestration, scalability, and deployment automation using Docker, Kubernetes (Minikube), AWS EC2,and Docker Hub.
 
 This project showcases an end-to-end DevOps workflow from application containerization to Kubernetes deployment with autoscaling.
 
@@ -20,8 +19,7 @@ This project showcases an end-to-end DevOps workflow from application containeri
 - Manage configuration using ConfigMaps
 - Implement Horizontal Pod Autoscaler
 - Expose application using Kubernetes Services
-- Deploy on AWS EC2 using Minikube
-- Automate deployment using GitHub Actions
+- Deploy on AWS EC2 using Minikube 
 
 ---
 
@@ -71,36 +69,152 @@ Hosted on AWS EC2
 # 📂 Project Structure
 
 ```
-FoodExpress
+FoodExpress/
 │
-├── backend/
-│   ├── Dockerfile
-│   ├── package.json
-│   └── server.js
+├── 📁 backend/
+│   ├── 📁 routes/
+│   │   ├── 📄 menu.js
+│   │   └── 📄 order.js
+│   ├── 📁 node_modules/
+│   ├── 📄 Dockerfile
+│   ├── 📄 package.json
+│   ├── 📄 package-lock.json
+│   ├── 📄 server.js
+│   ├── 📄 db.js
+│   └── 📄 .env
 │
-├── frontend/
-│   ├── Dockerfile
-│   └── React Application
+├── 📁 frontend/
+│   ├── 📄 Dockerfile
+│   ├── 📄 nginx.conf
+│   ├── 📄 index.html
+│   ├── 📄 cart.html
+│   ├── 📄 contact.html
+│   ├── 📄 script.js
+│   └── 📄 style.css
 │
-├── kubernetes/
-│   ├── namespace.yaml
-│   ├── config.yaml
-│   ├── secret.yaml
-│   ├── mysql-secret.yaml
-│   ├── mysql-pv.yaml
-│   ├── mysql-pvc.yaml
-│   ├── mysql-deployment.yaml
-│   ├── backend-deployment.yaml
-│   ├── backend-service.yaml
-│   ├── frontend-deployment.yaml
-│   ├── frontend-service.yaml
-│   ├── ingress.yaml
-│   └── hpa.yaml
+├── 📁 database/
+│   └── 📄 init.sql
 │
-└── .github/
-    └── workflows/
-        └── deploy.yml
+├── 📁 kubernetes/
+│   ├── 📄 namespace.yaml
+│   ├── 📄 config.yaml
+│   ├── 📄 secret.yaml
+│   ├── 📄 mysql-secret.yaml
+│   ├── 📄 mysql-pv.yaml
+│   ├── 📄 mysql-pvc.yaml
+│   ├── 📄 mysql-deployment.yaml
+│   ├── 📄 mysql-service.yaml
+│   ├── 📄 backend-deployment.yaml
+│   ├── 📄 backend-service.yaml
+│   ├── 📄 frontend-deployment.yaml
+│   ├── 📄 frontend-service.yaml
+│   ├── 📄 ingress.yaml
+│   └── 📄 hpa.yaml
+│
+├── 📁 .github/
+│   └── 📁 workflows/
+│       └── 📄 deploy.yml
+│
+├── 📄 .gitignore
+├── 📄 README.md
+└── 📄 LICENSE
+
+---
+
+# 📄 Kubernetes Resources
+
+The following Kubernetes resources are used to deploy, configure, expose, secure, and scale the **FoodExpress** application.
+
+| YAML File | Resource | Purpose |
+|------------|----------|---------|
+| **namespace.yaml** | Namespace | Creates an isolated namespace (`foodexpress`) to organize all project resources. |
+| **config.yaml** | ConfigMap | Stores non-sensitive configuration values like database host and application settings. |
+| **secret.yaml** | Secret | Stores sensitive application credentials securely. |
+| **mysql-secret.yaml** | Secret | Stores MySQL username and password securely. |
+| **mysql-pv.yaml** | Persistent Volume (PV) | Provides persistent storage for MySQL data. |
+| **mysql-pvc.yaml** | Persistent Volume Claim (PVC) | Requests storage from the Persistent Volume for MySQL. |
+| **mysql-deployment.yaml** | Deployment | Deploys and manages the MySQL database pod. |
+| **mysql-service.yaml** | Service (ClusterIP) | Allows internal communication with the MySQL database. |
+| **backend-deployment.yaml** | Deployment | Deploys and manages the Node.js backend application. |
+| **backend-service.yaml** | Service (ClusterIP) | Exposes the backend internally to the frontend. |
+| **frontend-deployment.yaml** | Deployment | Deploys and manages the frontend application. |
+| **frontend-service.yaml** | Service (NodePort) | Exposes the frontend outside the cluster. |
+| **ingress.yaml** | Ingress | Routes external HTTP requests to the frontend service using the NGINX Ingress Controller. |
+| **hpa.yaml** | Horizontal Pod Autoscaler | Automatically scales application pods based on CPU usage. |
+
+---
+
+# 📚 Kubernetes Resources Explained
+
+### 📦 Namespace
+- Organizes and isolates all Kubernetes resources within a dedicated namespace.
+
+### ⚙️ ConfigMap
+- Stores **non-sensitive** configuration values that can be updated without changing the application.
+
+### 🔐 Secret
+- Stores **sensitive** data such as passwords, usernames, and API keys securely.
+
+### 🚀 Deployment
+- Creates and manages Pods, maintains the desired number of replicas, and supports rolling updates.
+
+### 🌐 Service
+- Provides a stable network endpoint so applications can communicate.
+- **ClusterIP** → Internal communication.
+- **NodePort** → External access.
+
+### 🌍 Ingress
+- Acts as a single entry point that routes external HTTP/HTTPS traffic to the correct service.
+
+### 💾 Persistent Volume (PV)
+- Provides persistent storage so MySQL data is not lost when pods restart.
+
+### 📂 Persistent Volume Claim (PVC)
+- Requests storage from the Persistent Volume for application use.
+
+### 📈 Horizontal Pod Autoscaler (HPA)
+- Automatically increases or decreases the number of pods based on CPU utilization.
+
+---
+
+# 🔄 Deployment Flow
+
+```text
+Namespace
+    │
+    ▼
+ConfigMap + Secrets
+    │
+    ▼
+PV → PVC
+    │
+    ▼
+MySQL Deployment
+    │
+    ▼
+MySQL Service
+    │
+    ▼
+Backend Deployment
+    │
+    ▼
+Backend Service
+    │
+    ▼
+Frontend Deployment
+    │
+    ▼
+Frontend Service
+    │
+    ▼
+Ingress
+    │
+    ▼
+HPA
 ```
+
+> **Why this order?**  
+> Resources are created based on dependencies. Configuration and storage are created first, followed by the database, backend, frontend, networking (Service & Ingress), and finally autoscaling (HPA).
 
 ---
 
@@ -114,6 +228,7 @@ Install the following:
 - Minikube
 - AWS EC2 Ubuntu Server
 - Docker Hub Account
+
 
 ---
 
