@@ -3,7 +3,7 @@
 
 # 📖 Project Overview
 
-FoodExpress is a cloud-native food ordering application deployed using modern DevOps practices. This project demonstrates containerization, orchestration, scalability, and deployment automation using Docker, Kubernetes (Minikube), AWS EC2,and Docker Hub..
+FoodExpress is a cloud-native food ordering application deployed using modern DevOps practices. This project demonstrates containerization, orchestration, scalability, and deployment automation using Docker, Kubernetes (Minikube), AWS EC2,and Docker Hub.
 
 This project showcases an end-to-end DevOps workflow from application containerization to Kubernetes deployment with autoscaling.
 
