@@ -119,9 +119,9 @@ FoodExpress/
 ├── 📄 README.md
 └── 📄 LICENSE
 
----
+```
 
-# 📄 Kubernetes Resources
+# Kubernetes Resources
 
 The following Kubernetes resources are used to deploy, configure, expose, secure, and scale the **FoodExpress** application.
 
@@ -142,17 +142,17 @@ The following Kubernetes resources are used to deploy, configure, expose, secure
 | **ingress.yaml** | Ingress | Routes external HTTP requests to the frontend service using the NGINX Ingress Controller. |
 | **hpa.yaml** | Horizontal Pod Autoscaler | Automatically scales application pods based on CPU usage. |
 
----
+```
 
 # 📚 Kubernetes Resources Explained
 
-### 📦 Namespace
+#📦 Namespace
 - Organizes and isolates all Kubernetes resources within a dedicated namespace.
 
-### ⚙️ ConfigMap
+#⚙️ ConfigMap
 - Stores **non-sensitive** configuration values that can be updated without changing the application.
 
-### 🔐 Secret
+# 🔐 Secret
 - Stores **sensitive** data such as passwords, usernames, and API keys securely.
 
 ### 🚀 Deployment
@@ -175,7 +175,7 @@ The following Kubernetes resources are used to deploy, configure, expose, secure
 ### 📈 Horizontal Pod Autoscaler (HPA)
 - Automatically increases or decreases the number of pods based on CPU utilization.
 
----
+```
 
 # 🔄 Deployment Flow
 
