@@ -146,10 +146,10 @@ The following Kubernetes resources are used to deploy, configure, expose, secure
 
 # Namespace
 - Organizes and isolates all Kubernetes resources within a dedicated namespace.
-- 
+  
 # ConfigMap
-- Stores **non-sensitive** configuration values that can be updated without changing the applicati
-- 
+- Stores **non-sensitive** configuration values that can be updated without changing the application
+  
 # 🔐 Secret
 - Stores **sensitive** data such as passwords, usernames, and API keys securely.
 
