@@ -369,13 +369,13 @@ cd Task7-foodexpress-K8s
 Backend
 
 ```bash
-docker build -t madhu934652/food-express-backend:v1 ./backend
+docker build -t madhu934652/food-express-backend:latest ./backend
 ```
 
 Frontend
 
 ```bash
-docker build -t madhu934652/food-express-frontend:v1 ./frontend
+docker build -t madhu934652/food-express-frontend:latest ./frontend
 ```
 
 ---
@@ -387,9 +387,9 @@ docker login
 ```
 
 ```bash
-docker push madhu934652/food-express-backend:v1
+docker push madhu934652/food-express-backend:latest
 
-docker push madhu934652/food-express-frontend:v1
+docker push madhu934652/food-express-frontend:latest
 ```
 
 ---
