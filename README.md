@@ -265,7 +265,8 @@ Open Security Group ports:
 |22|SSH|
 |80|HTTP|
 |443|HTTPS|
-|30000-32767|NodePort|
+|8083|Customtcp|
+|30323|NodePort|
 
 SSH into EC2
 
