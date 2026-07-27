@@ -1,3 +1,27 @@
+✅ Task 7: Kubernetes Deployment (Real Production GKE/EKS Scenario)
+---
+# 🎯 Objective
+
+Deploy a containerized microservice application into a Kubernetes cluster with scaling, service exposure, rolling updates, and monitoring readiness.
+
+---
+
+# 🧩 Scenario
+
+Your company migrated applications from Docker standalone environment to Kubernetes for:
+
+High availability
+Auto scaling
+Self-healing
+Better resource management
+
+Now you must deploy the application into:
+
+Google Kubernetes Engine (GKE)
+OR
+Amazon Elastic Kubernetes Service (EKS)
+---
+
 # 🍔 FoodExpress - End-to-End DevOps Project
 
 
@@ -40,13 +64,14 @@ This project showcases an end-to-end DevOps workflow from application containeri
         Persistent Volume (PV)
                       │
 Persistent Volume Claim (PVC)
+                     |
 
-        Kubernetes Cluster
+         Kubernetes Cluster
              (Minikube)
+                 |
 
-Hosted on AWS EC2
+          Hosted on AWS EC2
 ```
-
 ---
 
 # 🛠️ Technology Stack
@@ -144,13 +169,13 @@ The following Kubernetes resources are used to deploy, configure, expose, secure
 
 # kubernetes files explanation 
 
-# Namespace
+### Namespace
 - Organizes and isolates all Kubernetes resources within a dedicated namespace.
   
-# ConfigMap
+### ConfigMap
 - Stores **non-sensitive** configuration values that can be updated without changing the application
   
-# 🔐 Secret
+### 🔐 Secret
 - Stores **sensitive** data such as passwords, usernames, and API keys securely.
 
 ### 🚀 Deployment
