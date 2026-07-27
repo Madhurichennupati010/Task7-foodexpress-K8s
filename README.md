@@ -14,6 +14,48 @@ High availability
 Auto scaling
 Self-healing
 Better resource management
+--- 
+### *Step 1 — Create Cluster*
+
+eksctl create cluster
+
+#### *Step 2 — Connect Cluster*
+
+kubectl get nodes
+
+### *Step 3 — Deploy Application*
+
+kubectl apply -f deployment.yaml
+
+kubectl apply -f service.yaml
+
+### *Step 4 — Verify Pods*
+
+kubectl get pods
+
+kubectl get svc
+
+kubectl describe pod <pod-name>
+
+### *Step 5 — Scale Application*
+
+kubectl scale deployment backend-app --replicas=5
+
+### *Step 6 — Rolling Update*
+
+kubectl set image deployment/backend-app backend=rajesh/backend:v2
+
+
+### ✅ *Expected Output*
+
+Application accessible via external IP
+
+Pods running successfully
+
+Traffic distributed across replicas
+
+Rolling updates without downtime
+---
 
 # 🍔 FoodExpress - End-to-End DevOps Project
 
