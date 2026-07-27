@@ -15,13 +15,6 @@ Auto scaling
 Self-healing
 Better resource management
 
-Now you must deploy the application into:
-
-Google Kubernetes Engine (GKE)
-OR
-Amazon Elastic Kubernetes Service (EKS)
----
-
 # 🍔 FoodExpress - End-to-End DevOps Project
 
 
