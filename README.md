@@ -10,12 +10,14 @@ Deploy a containerized microservice application into a Kubernetes cluster with s
 
 Your company migrated applications from Docker standalone environment to Kubernetes for:
 
-High availability
-Auto scaling
-Self-healing
+High availability ,
+Auto scaling ,
+Self-healing ,
 Better resource management
 
 --- 
+# Procedure
+
 ### *Step 1 — Create Cluster*
 
 eksctl create cluster
@@ -56,6 +58,7 @@ Pods running successfully
 Traffic distributed across replicas
 
 Rolling updates without downtime
+
 ---
 
 # 🍔 FoodExpress - End-to-End DevOps Project
