@@ -14,6 +14,7 @@ High availability
 Auto scaling
 Self-healing
 Better resource management
+
 --- 
 ### *Step 1 — Create Cluster*
 
