@@ -1,22 +1,23 @@
 ✅ Task 7: Kubernetes Deployment (Real Production GKE/EKS Scenario)
 ---
-# 🎯 Objective
+### 🎯 Objective
 
 Deploy a containerized microservice application into a Kubernetes cluster with scaling, service exposure, rolling updates, and monitoring readiness.
 
 ---
 
-# 🧩 Scenario
+### 🧩 Scenario
 
 Your company migrated applications from Docker standalone environment to Kubernetes for:
 
-High availability ,
-Auto scaling ,
+High availability 
+Auto scaling 
 Self-healing ,
 Better resource management
 
---- 
-# Procedure
+---
+
+### Procedure
 
 ### *Step 1 — Create Cluster*
 
