@@ -10,8 +10,8 @@ Deploy a containerized microservice application into a Kubernetes cluster with s
 
 Your company migrated applications from Docker standalone environment to Kubernetes for:
 
-High availability 
-Auto scaling 
+High availability ,
+Auto scaling ,
 Self-healing ,
 Better resource management
 
